@@ -3,9 +3,11 @@
 namespace Tests\Unit;
 
 use App\Jobs\CreateOrder;
+use App\Jobs\NotifyOrderCreated;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class CreateOrderTest extends TestCase

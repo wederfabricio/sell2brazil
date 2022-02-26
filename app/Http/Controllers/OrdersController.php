@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateOrder;
+use App\Transformers\OrderTransformers\OrderTransformerFactory;
 use Illuminate\Http\Request;
 
 class OrdersController
 {
-    public function create(Request $request)
+    public function create(Request $request, string $apiVersion = 'v1')
     {
         $order = (new CreateOrder($request->all()))->handle();
-        return response()->json([
-            'OrderId' => $order->id,
-            'OrderCode' => $order->code,
-            'OrderDate' => $order->created_at->toDateString(),
-            'TotalAmountWithoutDiscount' => $order->total,
-            'TotalAmountWithDiscount' => $order->totalWithDiscounts,
-        ]);
+        return response()->json(OrderTransformerFactory::create($apiVersion)->transform($order));
     }
 }

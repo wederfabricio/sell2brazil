@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read string $code
  * @property-read float $totalWithDiscounts
  * @property-read float $total
+ * @property-read float $discounts
  * @property Carbon $created_at
  */
 class Order extends Model
@@ -38,9 +39,7 @@ class Order extends Model
 
     public function getTotalWithDiscountsAttribute(): float
     {
-        $discounts = $this->items->sum(function (OrderItem $item) {
-            return $item->discounts;
-        });
+        $discounts = $this->discounts;
 
         return $this->total - $discounts;
     }
@@ -48,5 +47,12 @@ class Order extends Model
     public function getTotalAttribute(): float
     {
         return $this->items->sum('amount');
+    }
+
+    public function getDiscountsAttribute(): float
+    {
+        return $this->items->sum(function (OrderItem $item) {
+            return $item->discounts;
+        });
     }
 }

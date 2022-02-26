@@ -49,7 +49,7 @@ class CreateOrder implements ShouldQueue
      */
     public function handle(): Order
     {
-        return DB::transaction(function () {
+        $order = DB::transaction(function () {
             $totalDiscounts = 0;
             $totalAmount  = 0;
 
@@ -87,5 +87,9 @@ class CreateOrder implements ShouldQueue
 
             return $order;
         });
+
+        NotifyOrderCreated::dispatch($order);
+
+        return $order;
     }
 }
