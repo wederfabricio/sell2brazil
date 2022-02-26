@@ -18,6 +18,10 @@
 curl -H "Content-type: application/json" -H "Accept: application/json" -d '[{"ArticleCode":"T12","ArticleName":"Tractor 2011 - XYZ","UnitPrice":200,"Quantity":3},{"ArticleCode":"T12","ArticleName":"Tractor 2011 - XYZ","UnitPrice":200,"Quantity":2}]' -X POST http://localhost/api/orders
 ```
 
+### Frontend Repo
+
+https://github.com/wederfabricio/sell2brazil_front
+
 ### Requirements
 
 You are working for a company in the ERP sector, one customer requests a new endpoint to create a new order and calculate the price for the order.
